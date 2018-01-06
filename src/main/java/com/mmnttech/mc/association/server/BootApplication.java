@@ -1,4 +1,4 @@
-package com.mmnttech.ma.merchant.server;
+package com.mmnttech.mc.association.server;
 
 import javax.sql.DataSource;
 

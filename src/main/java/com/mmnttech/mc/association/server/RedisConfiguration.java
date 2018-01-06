@@ -1,4 +1,4 @@
-package com.mmnttech.ma.merchant.server;
+package com.mmnttech.mc.association.server;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
