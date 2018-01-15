@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmnttech.mc.association.server.database.mappers.ComplaintMapper" >
+  <resultMap id="BaseResultMap" type="com.mmnttech.mc.association.server.database.entity.Complaint" >
+    <id column="rec_id" property="recId" jdbcType="VARCHAR" />
+    <result column="merchant_id" property="merchantId" jdbcType="VARCHAR" />
+    <result column="integrity_code" property="integrityCode" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="amt" property="amt" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_tel" property="userTel" jdbcType="VARCHAR" />
+    <result column="step" property="step" jdbcType="VARCHAR" />
+    <result column="result_message" property="resultMessage" jdbcType="VARCHAR" />
+    <result column="fair_id" property="fairId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="evaluation" property="evaluation" jdbcType="DECIMAL" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rec_id, merchant_id, integrity_code, order_id, amt, type, date, addr, message, user_id, 
+    user_tel, step, result_message, fair_id, status, evaluation, create_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmnttech.mc.association.server.database.entity.ComplaintExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_complaint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_complaint
+    where rec_id = #{recId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_complaint
+    where rec_id = #{recId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmnttech.mc.association.server.database.entity.ComplaintExample" >
+    delete from t_complaint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmnttech.mc.association.server.database.entity.Complaint" >
+    insert into t_complaint (rec_id, merchant_id, integrity_code, 
+      order_id, amt, type, 
+      date, addr, message, 
+      user_id, user_tel, step, 
+      result_message, fair_id, status, 
+      evaluation, create_date)
+    values (#{recId,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, #{integrityCode,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR}, #{amt,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}, 
+      #{date,jdbcType=TIMESTAMP}, #{addr,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{userTel,jdbcType=VARCHAR}, #{step,jdbcType=VARCHAR}, 
+      #{resultMessage,jdbcType=VARCHAR}, #{fairId,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{evaluation,jdbcType=DECIMAL}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmnttech.mc.association.server.database.entity.Complaint" >
+    insert into t_complaint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recId != null" >
+        rec_id,
+      </if>
+      <if test="merchantId != null" >
+        merchant_id,
+      </if>
+      <if test="integrityCode != null" >
+        integrity_code,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="amt != null" >
+        amt,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userTel != null" >
+        user_tel,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+      <if test="resultMessage != null" >
+        result_message,
+      </if>
+      <if test="fairId != null" >
+        fair_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="evaluation != null" >
+        evaluation,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recId != null" >
+        #{recId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="integrityCode != null" >
+        #{integrityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="amt != null" >
+        #{amt,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=VARCHAR},
+      </if>
+      <if test="resultMessage != null" >
+        #{resultMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="fairId != null" >
+        #{fairId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="evaluation != null" >
+        #{evaluation,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmnttech.mc.association.server.database.entity.ComplaintExample" resultType="java.lang.Integer" >
+    select count(*) from t_complaint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_complaint
+    <set >
+      <if test="record.recId != null" >
+        rec_id = #{record.recId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchantId != null" >
+        merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.integrityCode != null" >
+        integrity_code = #{record.integrityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amt != null" >
+        amt = #{record.amt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addr != null" >
+        addr = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userTel != null" >
+        user_tel = #{record.userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.step != null" >
+        step = #{record.step,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resultMessage != null" >
+        result_message = #{record.resultMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fairId != null" >
+        fair_id = #{record.fairId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.evaluation != null" >
+        evaluation = #{record.evaluation,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_complaint
+    set rec_id = #{record.recId,jdbcType=VARCHAR},
+      merchant_id = #{record.merchantId,jdbcType=VARCHAR},
+      integrity_code = #{record.integrityCode,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      amt = #{record.amt,jdbcType=DECIMAL},
+      type = #{record.type,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=TIMESTAMP},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      message = #{record.message,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_tel = #{record.userTel,jdbcType=VARCHAR},
+      step = #{record.step,jdbcType=VARCHAR},
+      result_message = #{record.resultMessage,jdbcType=VARCHAR},
+      fair_id = #{record.fairId,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=CHAR},
+      evaluation = #{record.evaluation,jdbcType=DECIMAL},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmnttech.mc.association.server.database.entity.Complaint" >
+    update t_complaint
+    <set >
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="integrityCode != null" >
+        integrity_code = #{integrityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="amt != null" >
+        amt = #{amt,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userTel != null" >
+        user_tel = #{userTel,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null" >
+        step = #{step,jdbcType=VARCHAR},
+      </if>
+      <if test="resultMessage != null" >
+        result_message = #{resultMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="fairId != null" >
+        fair_id = #{fairId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="evaluation != null" >
+        evaluation = #{evaluation,jdbcType=DECIMAL},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rec_id = #{recId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmnttech.mc.association.server.database.entity.Complaint" >
+    update t_complaint
+    set merchant_id = #{merchantId,jdbcType=VARCHAR},
+      integrity_code = #{integrityCode,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      amt = #{amt,jdbcType=DECIMAL},
+      type = #{type,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP},
+      addr = #{addr,jdbcType=VARCHAR},
+      message = #{message,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      user_tel = #{userTel,jdbcType=VARCHAR},
+      step = #{step,jdbcType=VARCHAR},
+      result_message = #{resultMessage,jdbcType=VARCHAR},
+      fair_id = #{fairId,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      evaluation = #{evaluation,jdbcType=DECIMAL},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where rec_id = #{recId,jdbcType=VARCHAR}
+  </update>
+</mapper>
