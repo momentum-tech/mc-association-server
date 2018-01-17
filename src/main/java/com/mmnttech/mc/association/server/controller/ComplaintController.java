@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mmnttech.mc.association.server.common.entity.QueryEntity;
 import com.mmnttech.mc.association.server.common.entity.RtnMessage;
+import com.mmnttech.mc.association.server.database.entity.Complaint;
 import com.mmnttech.mc.association.server.service.ComplaintService;
 
 /**
@@ -46,6 +47,22 @@ public class ComplaintController {
 		try {
 			List<Map<String, Object>> records = complaintService.queryComplaintLst(queryEntity);
 			rtnMsg.setRtnObj(records);
+		} catch (Exception e) {
+			logger.error("queryComplaintLst 出现异常：", e);
+			rtnMsg.setIsSuccess(false);
+			rtnMsg.setMessage(RtnMessage.ERROR_QUERY_1);
+		}
+		
+		return rtnMsg;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "createComplaint")
+	public RtnMessage createComplaint(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("complaint") Complaint complaint) {
+		RtnMessage rtnMsg = new RtnMessage();
+		try {
+			rtnMsg = complaintService.createComplaint(complaint);
 		} catch (Exception e) {
 			logger.error("queryComplaintLst 出现异常：", e);
 			rtnMsg.setIsSuccess(false);
